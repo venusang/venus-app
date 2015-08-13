@@ -1,0 +1,25 @@
+<div class="container">
+{{outlet}}
+</div>
+
+<div class="row">
+	<h2>Dragula</h2>
+{{#ember-dragula config=dragulaoptions dragulaEvent='dragulaEvent' }}
+    {{#ember-dragula-container }}
+        <div>
+            Container 1
+        </div>
+        <div>
+        </div>
+    {{/ember-dragula-container}}
+    {{#ember-dragula-container }}
+        <div>
+			Container 2
+        </div>
+        <div>
+        </div>
+    {{/ember-dragula-container}}
+{{/ember-dragula}}
+
+
+</div>

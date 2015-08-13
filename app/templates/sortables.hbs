@@ -1,0 +1,13 @@
+
+<h2>Ember-Cli-Sortable</h2>
+{{#each sortable in model}}
+	{{sortable-items sortable=sortable
+	  animation=100
+	  handle=".item__handle"
+	  filter=".item--pinned"
+	  draggable=".item"
+	  ghostClass="item--ghost"
+	  onItemMoveAction="itemMoved"
+	  noItemText="<div style='text-align:center'>No items found</div>"
+	}}
+{{/each}}

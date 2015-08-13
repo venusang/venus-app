@@ -1,0 +1,43 @@
+<div class="row">
+	<div class="col-md-6">
+		<h3>Unclassified Posts</h3>
+		<ul class="list-group">
+		{{#each post in model2}}
+		  {{#draggable-object content=post}}
+		    {{post-item post=post}}
+		  {{/draggable-object}}
+		{{/each}}
+		</ul>
+	</div>
+	<div class="col-md-6">
+		<h3>Possible Statuses</h3>
+		{{#draggable-object-target action="setStatus" status="Ready to Publish"}}
+		  Ready to Publish
+		{{/draggable-object-target}}
+		<hr />
+
+		{{#draggable-object-target action="setStatus" status="Needs Revision"}}
+		  Needs Revision
+		{{/draggable-object-target}}
+
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+	{{#my-auto-complete
+	   options=codes
+      selectedValue=model.code
+	   placeHolderText="Find a thing"
+	   inputClass="my-fun-input-thing andTwo"
+	   noMesssagePlaceHolderText="No things are found"
+	   selectItem="itemSelected" as |result|}}
+	   <p><b>{{result.code}}</b>{{result.text}}</p>
+	{{/my-auto-complete}}
+
+	<p class="selection">{{controller.selection}}</p>
+	</div>
+</div>
+
+

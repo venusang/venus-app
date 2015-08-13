@@ -1,0 +1,21 @@
+<h1>Handmade Drag and Drop</h1>
+Tutorial reference: <a href="https://medium.com/delightful-ui-for-ember-apps/ember-js-and-html5-drag-and-drop-fa5dfe478a9a">Here</a>
+
+
+<div class="selected-users">
+  {{#draggable-dropzone dropped="addUser"}}
+    <ul class="selected-users-list">
+      {{#each user in selectedUsers}}
+        <li>{{user.fullName}}</li>
+      {{/each}} 
+    </ul>
+  {{/draggable-dropzone}}
+</div>
+
+<div class="available-users">
+  {{#each user in model}}
+    {{#draggable-item content=user.id}}
+      <span>{{user.fullName}}</span>
+    {{/draggable-item}}
+  {{/each}}
+</div>

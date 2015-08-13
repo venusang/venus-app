@@ -1,0 +1,1 @@
+/Users/venusang/Documents/venus-app/node_modules/ember-drag-drop/addon/mixins/droppable.js
