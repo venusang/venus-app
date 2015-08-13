@@ -26,6 +26,7 @@ export default Ember.Route.extend({
 	// model:function(){
 	// 	return this.store.findAll('post');
 	// },
+	
 	 actions: {
 	    setStatus: function(post, ops) {
 			var status = ops.target.status;
