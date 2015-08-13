@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/tmp/caching-writer-dest-dir_VXg8c7.tmp/assets/vendor.js

@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/tmp/funnel-output_path-JY8tp4iX.tmp/ember-cli-content-security-policy.js

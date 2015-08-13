@@ -1,1 +1,0 @@
-/Applications/MAMP/htdocs/venus-app/app/components/post-item.js

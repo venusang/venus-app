@@ -1,1 +1,0 @@
-/Applications/MAMP/htdocs/venus-app/tmp/babel-cache_path-Cu5hPkQb.tmp/venus-app/tests/unit/controllers/example-test.js

@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/tmp/tree_merger-tmp_dest_dir-eHwu2LiT.tmp/venus-app/controllers/object.js

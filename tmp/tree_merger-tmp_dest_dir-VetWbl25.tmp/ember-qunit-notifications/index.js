@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/tmp/funnel-output_path-FEaZ04Tn.tmp/ember-qunit-notifications/index.js

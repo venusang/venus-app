@@ -1,4 +1,0 @@
-module('JSHint - components');
-test('components/my-auto-complete.js should pass jshint', function() { 
-  ok(true, 'components/my-auto-complete.js should pass jshint.'); 
-});

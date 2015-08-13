@@ -1,1 +1,0 @@
-/Applications/MAMP/htdocs/venus-app/node_modules/ember-drag-drop/addon/components/draggable-object-target.js

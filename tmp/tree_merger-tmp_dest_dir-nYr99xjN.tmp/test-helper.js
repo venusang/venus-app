@@ -1,1 +1,0 @@
-/Applications/MAMP/htdocs/venus-app/tests/test-helper.js
