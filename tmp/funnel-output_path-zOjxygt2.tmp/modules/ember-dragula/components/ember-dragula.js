@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/venus-app/node_modules/ember-dragula/addon/components/ember-dragula.js

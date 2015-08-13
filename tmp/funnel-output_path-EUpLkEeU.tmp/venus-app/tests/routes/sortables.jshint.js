@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/venus-app/tmp/jshinter-tmp_cache_dir-EoZZghVI.tmp/16

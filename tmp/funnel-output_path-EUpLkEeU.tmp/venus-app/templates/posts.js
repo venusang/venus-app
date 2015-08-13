@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/venus-app/tmp/template_compiler-tmp_dest_dir-ahNhyaes.tmp/venus-app/templates/posts.js

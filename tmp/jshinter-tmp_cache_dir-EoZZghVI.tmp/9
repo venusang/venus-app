@@ -1,0 +1,4 @@
+module('JSHint - models');
+test('models/draggable.js should pass jshint', function() { 
+  ok(true, 'models/draggable.js should pass jshint.'); 
+});

@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/venus-app/app/adapters/application.js
