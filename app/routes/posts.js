@@ -21,7 +21,8 @@ export default Ember.Route.extend({
     },
 
 
-
+    //Draggable isn't working right now because the model below is commented out
+    //so that I can get ember-cli-auto-complete working
 	// model:function(){
 	// 	return this.store.findAll('post');
 	// },

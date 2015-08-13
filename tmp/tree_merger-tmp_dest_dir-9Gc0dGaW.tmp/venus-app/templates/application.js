@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/tmp/template_compiler-tmp_dest_dir-f90PkjVi.tmp/venus-app/templates/application.js
