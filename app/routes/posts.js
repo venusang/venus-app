@@ -24,10 +24,23 @@ export default Ember.Route.extend({
 	
 	 actions: {
 	    setStatus: function(post, ops) {
-			var status = ops.target.status;
-			console.debug('status is: '+status);
-			post.set("status","changed");
-			post.save();
+			// var status = ops.target.status;
+			console.debug(post.get("status"));
+			
+			var status = post.get("status");
+			var bucketStatus = ops.target.get("status");
+
+			if(bucketStatus == 'Ready to Publish'){
+				post.set("status",'Ready to Publish');
+				post.set("class",'label-info');
+				post.save();
+			} 
+
+			if (bucketStatus == 'Needs Revision'){
+				post.set("status","Needs Revision");
+				post.set("class",'label-warning');
+				post.save();
+			}
 		},
 		itemSelected: function(item) {
 	      this.get('controller').set('selection', item.get('code'));
