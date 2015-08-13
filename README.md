@@ -1,5 +1,12 @@
 # venus-app
-This is an ember-cli sandbox app in which I'm trying to get various ember-cli addons to work.  So far, addons included are:  draggable, ember-cli-autocomplete, and ember-dragula (doesn't work right now - grrr)
+This is an ember-cli sandbox app in which I'm trying to get various ember-cli addons to work.  So far, addons included are:  
+- ember-drag-and-drop
+	- https://github.com/mharris717/ember-drag-drop
+- ember-cli-autocomplete
+	- https://www.npmjs.com/ember-cli-auto-complete
+- ember-dragula (doesn't work right now - grrr)
+	- https://github.com/kalcifer/ember-dragula 
+	- https://www.npmjs.com/package/ember-dragula
 
 
 This README outlines the details of collaborating on this Ember application.

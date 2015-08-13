@@ -3678,7 +3678,7 @@ catch(err) {
 if (runningTests) {
   require("venus-app/tests/test-helper");
 } else {
-  require("venus-app/app")["default"].create({"name":"venus-app","version":"0.0.0+c5b3b8b6"});
+  require("venus-app/app")["default"].create({"name":"venus-app","version":"0.0.0+7f630743"});
 }
 
 /* jshint ignore:end */
