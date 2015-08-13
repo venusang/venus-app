@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/app/components/sortable-item.js

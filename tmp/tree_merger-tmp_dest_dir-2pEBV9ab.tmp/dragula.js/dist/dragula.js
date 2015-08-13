@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/tmp/funnel-output_path-E7JYnacD.tmp/dragula.js/dist/dragula.js

@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/node_modules/ember-drag-drop/addon/components/object-bin.js

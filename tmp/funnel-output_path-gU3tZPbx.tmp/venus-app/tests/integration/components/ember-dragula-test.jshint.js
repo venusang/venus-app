@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/tmp/jshinter-tmp_cache_dir-88hsEFkS.tmp/5

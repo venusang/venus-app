@@ -1,1 +1,0 @@
-/Users/venusang/Documents/venus-app/tmp/funnel-output_path-PepClPEw.tmp/qunit/qunit/qunit.js
