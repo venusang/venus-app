@@ -102,18 +102,27 @@ define('venus-app/components/draggable-object', ['exports', 'ember-drag-drop/com
 	exports['default'] = DraggableObject['default'];
 
 });
-define('venus-app/components/ember-dragula-container', ['exports', 'ember', 'ember-dragula/components/ember-dragula-container'], function (exports, Ember, EmberDragulaContainer) {
+define('venus-app/components/ember-dragula-container', ['exports', 'ember'], function (exports, Ember) {
 
 	'use strict';
 
-	exports['default'] = EmberDragulaContainer['default'];
+	exports['default'] = Ember['default'].Component.extend({});
 
 });
-define('venus-app/components/ember-dragula', ['exports', 'ember', 'ember-dragula/components/ember-dragula'], function (exports, Ember, EmberDragula) {
+define('venus-app/components/ember-dragula', ['exports', 'ember'], function (exports, Ember) {
 
-	'use strict';
+    'use strict';
 
-	exports['default'] = EmberDragula['default'];
+    exports['default'] = Ember['default'].Component.extend({
+        dragulaoptions: {
+            direction: 'vertical', // Y axis is considered when determining where an element would be dropped
+            copy: false, // elements will be moved by default, not copied
+            revertOnSpill: false, // spilling will put the element back where it was dragged from, if this is true
+            removeOnSpill: false, // spilling will `.remove` the element, if this is true
+            delay: false // enable regular clicks by setting to true or a number of milliseconds
+        }
+
+    });
 
 });
 define('venus-app/components/my-auto-complete', ['exports', 'ember-cli-auto-complete/components/auto-complete'], function (exports, AutoComplete) {
@@ -186,7 +195,15 @@ define('venus-app/controllers/posts', ['exports', 'ember'], function (exports, E
 
 	'use strict';
 
-	exports['default'] = Ember['default'].Controller.extend({});
+	exports['default'] = Ember['default'].Controller.extend({
+					dragulaoptions: {
+									direction: 'vertical', // Y axis is considered when determining where an element would be dropped
+									copy: false, // elements will be moved by default, not copied
+									revertOnSpill: false, // spilling will put the element back where it was dragged from, if this is true
+									removeOnSpill: false, // spilling will `.remove` the element, if this is true
+									delay: false // enable regular clicks by setting to true or a number of milliseconds
+					}
+	});
 
 });
 define('venus-app/helpers/log', ['exports'], function (exports) {
@@ -451,37 +468,20 @@ define('venus-app/models/users', ['exports', 'ember-data'], function (exports, D
 });
 define('venus-app/router', ['exports', 'ember', 'venus-app/config/environment'], function (exports, Ember, config) {
 
-    'use strict';
+	'use strict';
 
-    var Foo = Ember['default'].Object.extend({});
-    var Bar = Ember['default'].Object.extend({ code: "" });
+	var Router = Ember['default'].Router.extend({
+		location: config['default'].locationType
+	});
 
-    var Router = Ember['default'].Router.extend({
-        location: config['default'].locationType,
-        model: function model() {
-            var codes = [];
-            codes.pushObject(Foo.create({ code: "ABC", text: "SOMETHING 1" }));
-            codes.pushObject(Foo.create({ code: "ABCD", text: "SOMETHING 2" }));
-            codes.pushObject(Foo.create({ code: "ABCDE", text: "SOMETHING 3" }));
-            return Ember['default'].RSVP.hash({
-                model: Bar.create(),
-                codes: codes
-            });
-        },
-        setupController: function setupController(controller, hash) {
-            controller.set("model", hash.model);
-            controller.set("codes", hash.codes);
-        }
-    });
+	Router.map(function () {
+		this.resource('posts', { path: '/' });
+		this.resource('sortables');
+		this.resource('draggables');
+		this.resource('dragula');
+	});
 
-    Router.map(function () {
-        this.resource('posts', { path: '/' });
-        this.resource('sortables');
-        this.resource('draggables');
-        this.resource('dragula');
-    });
-
-    exports['default'] = Router;
+	exports['default'] = Router;
 
 });
 define('venus-app/routes/draggables', ['exports', 'ember'], function (exports, Ember) {
@@ -533,28 +533,24 @@ define('venus-app/routes/posts', ['exports', 'ember'], function (exports, Ember)
 	var Foo = Ember['default'].Object.extend({});
 	var Bar = Ember['default'].Object.extend({ code: "" });
 
-	var Post = Ember['default'].Object.extend({});
 	exports['default'] = Ember['default'].Route.extend({
 					model: function model() {
 									var codes = [];
+									var posts = this.store.findAll('post'); //this used to be in the model hook as return this.store.findAll('post');
 									codes.pushObject(Foo.create({ code: "ABC", text: "SOMETHING 1" }));
 									codes.pushObject(Foo.create({ code: "ABCD", text: "SOMETHING 2" }));
 									codes.pushObject(Foo.create({ code: "ABCDE", text: "SOMETHING 3" }));
 									return Ember['default'].RSVP.hash({
 													model: Bar.create(),
-													codes: codes
+													codes: codes,
+													posts: posts //I added this to the hash
 									});
 					},
 					setupController: function setupController(controller, hash) {
 									controller.set("model", hash.model);
 									controller.set("codes", hash.codes);
+									controller.set("posts", hash.posts); //I added this to the setupController hook and changed "model" in the posts.hbs to say "posts"
 					},
-
-					//Draggable isn't working right now because the model below is commented out
-					//so that I can get ember-cli-auto-complete working
-					// model:function(){
-					// 	return this.store.findAll('post');
-					// },
 
 					actions: {
 									setStatus: function setStatus(post, ops) {
@@ -2167,11 +2163,11 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 29,
+              "line": 30,
               "column": 1
             },
             "end": {
-              "line": 37,
+              "line": 38,
               "column": 1
             }
           },
@@ -2189,6 +2185,8 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
           var el3 = dom.createComment("");
           dom.appendChild(el2, el3);
           dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode(" - ");
+          dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
@@ -2200,12 +2198,12 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
           var element0 = dom.childAt(fragment, [1]);
           var morphs = new Array(2);
           morphs[0] = dom.createMorphAt(dom.childAt(element0, [0]),0,0);
-          morphs[1] = dom.createMorphAt(element0,1,1);
+          morphs[1] = dom.createMorphAt(element0,2,2);
           return morphs;
         },
         statements: [
-          ["content","result.code",["loc",[null,[36,10],[36,25]]]],
-          ["content","result.text",["loc",[null,[36,29],[36,44]]]]
+          ["content","result.code",["loc",[null,[37,10],[37,25]]]],
+          ["content","result.text",["loc",[null,[37,32],[37,47]]]]
         ],
         locals: ["result"],
         templates: []
@@ -2219,11 +2217,11 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
             "loc": {
               "source": null,
               "start": {
-                "line": 47,
+                "line": 48,
                 "column": 6
               },
               "end": {
-                "line": 53,
+                "line": 54,
                 "column": 6
               }
             },
@@ -2265,11 +2263,11 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
             "loc": {
               "source": null,
               "start": {
-                "line": 54,
+                "line": 55,
                 "column": 6
               },
               "end": {
-                "line": 60,
+                "line": 61,
                 "column": 6
               }
             },
@@ -2310,11 +2308,11 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 46,
+              "line": 47,
               "column": 2
             },
             "end": {
-              "line": 61,
+              "line": 62,
               "column": 2
             }
           },
@@ -2340,8 +2338,8 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
           return morphs;
         },
         statements: [
-          ["block","ember-dragula-container",[],[],0,null,["loc",[null,[47,6],[53,34]]]],
-          ["block","ember-dragula-container",[],[],1,null,["loc",[null,[54,6],[60,34]]]]
+          ["block","ember-dragula-container",[],[],0,null,["loc",[null,[48,6],[54,34]]]],
+          ["block","ember-dragula-container",[],[],1,null,["loc",[null,[55,6],[61,34]]]]
         ],
         locals: [],
         templates: [child0, child1]
@@ -2358,7 +2356,7 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
           },
           "end": {
             "line": 63,
-            "column": 0
+            "column": 6
           }
         },
         "moduleName": "venus-app/templates/posts.hbs"
@@ -2422,7 +2420,7 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
         var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n\n\n");
+        var el1 = dom.createTextNode("\n\n\n\n");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("div");
         dom.setAttribute(el1,"class","row");
@@ -2462,8 +2460,6 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
@@ -2480,12 +2476,12 @@ define('venus-app/templates/posts', ['exports'], function (exports) {
         return morphs;
       },
       statements: [
-        ["block","each",[["get","model2",["loc",[null,[5,18],[5,24]]]]],[],0,null,["loc",[null,[5,2],[9,11]]]],
+        ["block","each",[["get","posts",["loc",[null,[5,18],[5,23]]]]],[],0,null,["loc",[null,[5,2],[9,11]]]],
         ["block","draggable-object-target",[],["action","setStatus","status","Ready to Publish"],1,null,["loc",[null,[14,2],[16,30]]]],
         ["block","draggable-object-target",[],["action","setStatus","status","Needs Revision"],2,null,["loc",[null,[19,2],[21,30]]]],
-        ["block","my-auto-complete",[],["options",["subexpr","@mut",[["get","codes",["loc",[null,[30,12],[30,17]]]]],[],[]],"selectedValue",["subexpr","@mut",[["get","model.code",["loc",[null,[31,20],[31,30]]]]],[],[]],"placeHolderText","Find a thing","inputClass","my-fun-input-thing andTwo","noMesssagePlaceHolderText","No things are found","selectItem","itemSelected"],3,null,["loc",[null,[29,1],[37,22]]]],
-        ["content","controller.selection",["loc",[null,[39,22],[39,46]]]],
-        ["block","ember-dragula",[],["config",["subexpr","@mut",[["get","dragulaoptions",["loc",[null,[46,26],[46,40]]]]],[],[]],"dragulaEvent","dragulaEvent"],4,null,["loc",[null,[46,2],[61,20]]]]
+        ["block","my-auto-complete",[],["options",["subexpr","@mut",[["get","codes",["loc",[null,[31,10],[31,15]]]]],[],[]],"selectedValue",["subexpr","@mut",[["get","model.code",["loc",[null,[32,16],[32,26]]]]],[],[]],"placeHolderText","Find a thing","inputClass","my-fun-input-thing andTwo","noMesssagePlaceHolderText","No things are found","selectItem","itemSelected"],3,null,["loc",[null,[30,1],[38,22]]]],
+        ["content","controller.selection",["loc",[null,[40,22],[40,46]]]],
+        ["block","ember-dragula",[],["config",["subexpr","@mut",[["get","dragulaoptions",["loc",[null,[47,26],[47,40]]]]],[],[]],"dragulaEvent","dragulaEvent"],4,null,["loc",[null,[47,2],[62,20]]]]
       ],
       locals: [],
       templates: [child0, child1, child2, child3, child4]
@@ -2625,6 +2621,26 @@ define('venus-app/tests/components/draggable-item.jshint', function () {
   module('JSHint - components');
   test('components/draggable-item.js should pass jshint', function() { 
     ok(true, 'components/draggable-item.js should pass jshint.'); 
+  });
+
+});
+define('venus-app/tests/components/ember-dragula-container.jshint', function () {
+
+  'use strict';
+
+  module('JSHint - components');
+  test('components/ember-dragula-container.js should pass jshint', function() { 
+    ok(true, 'components/ember-dragula-container.js should pass jshint.'); 
+  });
+
+});
+define('venus-app/tests/components/ember-dragula.jshint', function () {
+
+  'use strict';
+
+  module('JSHint - components');
+  test('components/ember-dragula.js should pass jshint', function() { 
+    ok(true, 'components/ember-dragula.js should pass jshint.'); 
   });
 
 });
@@ -3516,7 +3532,7 @@ define('venus-app/tests/routes/posts.jshint', function () {
 
   module('JSHint - routes');
   test('routes/posts.js should pass jshint', function() { 
-    ok(false, 'routes/posts.js should pass jshint.\nroutes/posts.js: line 6, col 5, \'Post\' is defined but never used.\n\n1 error'); 
+    ok(true, 'routes/posts.js should pass jshint.'); 
   });
 
 });
@@ -3678,7 +3694,7 @@ catch(err) {
 if (runningTests) {
   require("venus-app/tests/test-helper");
 } else {
-  require("venus-app/app")["default"].create({"name":"venus-app","version":"0.0.0+7f630743"});
+  require("venus-app/app")["default"].create({"name":"venus-app","version":"0.0.0+54917291"});
 }
 
 /* jshint ignore:end */
