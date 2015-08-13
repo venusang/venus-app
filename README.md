@@ -1,4 +1,4 @@
-# Venus-app
+# venus-app
 This is an ember-cli sandbox app in which I'm trying to get various ember-cli addons to work.  So far, addons included are:  draggable, ember-cli-autocomplete, and ember-dragula (doesn't work right now - grrr)
 
 
@@ -16,8 +16,8 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* change into the new directory
+* `git clone https://github.com/venusang/venus-app` this repository
+* change into the new directory (cd venus-app)
 * `npm install`
 * `bower install`
 
