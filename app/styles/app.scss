@@ -1,0 +1,36 @@
+
+body{
+	font-family: 'Questrial', sans-serif;
+}
+h2{
+}
+.list-group-item:hover{
+	cursor: pointer;
+	background: #efefef;
+}
+
+.ready-to-publish-target,
+.needs-revision-target{
+	text-align: center;
+	border:1px solid #efefef;
+	border-radius: 4px;
+	padding:10px;
+	&.accepts-drag{
+		border:2px dashed #fff;
+		color:#fff;
+	}
+
+}
+
+.ready-to-publish-target{
+	&.accepts-drag{
+		background-color:#5bc0de;
+	}
+}
+.needs-revision-target{
+	&.accepts-drag{
+		background-color:#f0ad4e;
+	}
+}
+
+

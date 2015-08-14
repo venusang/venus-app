@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+	
     dragulaoptions:{
     	direction: 'vertical', // Y axis is considered when determining where an element would be dropped
 		copy: false,           // elements will be moved by default, not copied

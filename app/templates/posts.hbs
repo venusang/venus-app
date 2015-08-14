@@ -1,63 +1,80 @@
 <div class="row">
-	<div class="col-md-6">
-		<h3>Unclassified Posts</h3>
-		<ul class="list-group">
-		{{#each post in posts}}
-		  {{#draggable-object content=post}}
-		    {{post-item post=post}}
-		  {{/draggable-object}}
-		{{/each}}
-		</ul>
-	</div>
-	<div class="col-md-6">
-		<h3>Possible Statuses</h3>
-		{{#draggable-object-target action="setStatus" status="Ready to Publish"}}
-		  Ready to Publish
-		{{/draggable-object-target}}
-		<hr />
+	<div class="panel panel-default">
+		<div class="panel-heading"><h2 class="panel-title">ember-drag-and-drop</h2></div>
+		<div class="panel-body">
+			<p>Click and drag one of the Unclassfied Posts on top of one of the Status's</p>
+			<div class="col-md-4">
+				<h3>Unclassified Posts</h3>
+				<ul class="list-group">
+					{{#each post in posts}}
+					  {{#draggable-object content=post}}
+					    {{post-item post=post}}
+					  {{/draggable-object}}
+					{{/each}}
+				</ul>
+			</div>
+			<div class="col-md-8">
+				<h3>Status</h3>
 
-		{{#draggable-object-target action="setStatus" status="Needs Revision"}}
-		  Needs Revision
-		{{/draggable-object-target}}
+				{{#draggable-object-target action="setStatus" status="Ready to Publish" class="ready-to-publish-target col-md-2"}}
+				  Ready to Publish
+				{{/draggable-object-target}}
+				{{#draggable-object-target action="setStatus" status="Needs Revision" class="needs-revision-target col-md-2"}}
+				  Needs Revision
+				{{/draggable-object-target}}
+			</div>
+		</div><!-- panel-body -->
+	</div><!-- panel -->
+</div><!-- row -->
 
-	</div>
-</div>
-
-
-
-<div class="row">
-	<div class="col-md-12">
-	{{#my-auto-complete
-		options=codes
-		selectedValue=model.code
-		placeHolderText="Find a thing"
-		inputClass="my-fun-input-thing andTwo"
-		noMesssagePlaceHolderText="No things are found"
-		selectItem="itemSelected" as |result|}}
-	   <p><b>{{result.code}}</b> - {{result.text}}</p>
-	{{/my-auto-complete}}
-
-	<p class="selection">{{controller.selection}}</p>
-	</div>
-</div>
 
 
 <div class="row">
-	<h2>Dragula</h2>
-		{{#ember-dragula config=dragulaoptions dragulaEvent='dragulaEvent' }}
-		    {{#ember-dragula-container }}
-		        <div>
-		            Container 1
-		        </div>
-		        <div>
-		        </div>
-		    {{/ember-dragula-container}}
-		    {{#ember-dragula-container }}
-		        <div>
-					Container 2
-		        </div>
-		        <div>
-		        </div>
-		    {{/ember-dragula-container}}
-		{{/ember-dragula}}
-</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2 class="panel-title">ember-cli-autocomplete</h2>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-12">
+			{{#my-auto-complete
+				options=codes
+				selectedValue=model.code
+				placeHolderText="Find a thing"
+				inputClass="form-control"
+				noMesssagePlaceHolderText="No things are found"
+				selectItem="itemSelected" as |result|}}
+			   <p><b>{{result.code}}</b> - {{result.text}}</p>
+			{{/my-auto-complete}}
+
+			<p class="selection">{{controller.selection}}</p>
+			</div>
+		</div><!-- panel-body -->
+	</div><!-- panel -->
+</div><!-- row -->
+
+
+<div class="row">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2 class="panel-title">ember-dragula</h2>
+		</div>
+		<div class="panel-body">
+			{{#ember-dragula config=dragulaoptions dragulaEvent='dragulaEvent' }}
+			    {{#ember-dragula-container }}
+			        <div>
+			            Container 1
+			        </div>
+			        <div>
+			        </div>
+			    {{/ember-dragula-container}}
+			    {{#ember-dragula-container }}
+			        <div>
+						Container 2
+			        </div>
+			        <div>
+			        </div>
+			    {{/ember-dragula-container}}
+			{{/ember-dragula}}
+		</div><!-- panel-body -->
+	</div><!-- panel -->
+</div><!-- row -->

@@ -25,18 +25,22 @@ export default Ember.Route.extend({
 	 actions: {
 	    setStatus: function(post, ops) {
 			// var status = ops.target.status;
-			console.debug(post.get("status"));
+			// console.debug(post.isDraggingObject);
 			
-			var status = post.get("status");
+			// console.debug(post.get("status"));
+			// console.debug(ops.target.get("class"));
+			// console.debug(ops);
+			// var status = post.get("status");
 			var bucketStatus = ops.target.get("status");
 
-			if(bucketStatus == 'Ready to Publish'){
+
+			if(bucketStatus === 'Ready to Publish'){
 				post.set("status",'Ready to Publish');
 				post.set("class",'label-info');
 				post.save();
 			} 
 
-			if (bucketStatus == 'Needs Revision'){
+			if (bucketStatus === 'Needs Revision'){
 				post.set("status","Needs Revision");
 				post.set("class",'label-warning');
 				post.save();
